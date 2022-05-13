@@ -1,10 +1,8 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
-import './Header.css';
-
 const Header = () => {
   return (
-    <div className='container'>
+    <div className='px-28'>
       <Navbar />
     </div>
   );
