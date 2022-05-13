@@ -8,12 +8,12 @@ const Review = ({ review }) => {
 				<p>{content}</p>
 				<div class="flex items-center mt-5">
 					<div class="avatar">
-						<div class="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+						<div class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
 							<img src={avatar} alt="" />
 						</div>
 					</div>
 					<div className="ml-5">
-						<h4>{name}</h4>
+						<h4 className="font-semibold">{name}</h4>
 						<p>{location}</p>
 					</div>
 				</div>
