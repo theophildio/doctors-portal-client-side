@@ -9,7 +9,7 @@ import Treatment from './Treatment';
 
 const Home = () => {
   return (
-    <div className='container'>
+    <div>
       <Banner />
       <Information></Information>
       <Services></Services>
