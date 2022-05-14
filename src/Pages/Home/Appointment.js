@@ -5,13 +5,13 @@ import AppointmentBg from '../../assets/images/appointment.png'
 
 const Appointment = () => {
 	return (
-		<div className="hero lg:mt-52 h-[533px]" style={{
+		<div className="hero lg:mt-52 lg:h-[533px]" style={{
       backgroundImage: `url(${AppointmentBg})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
     }}>
-			<div className="hero-content flex-col gap-6 lg:flex-row lg:mt-[-123px]">
+			<div className="hero-content flex-col gap-6 lg:flex-row lg:mt-[-107px] py-12 lg:py-0">
 				<div>
 					<img src={Doctor} className="max-w-2xl hidden lg:block" alt="" />
 				</div>

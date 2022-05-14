@@ -12,7 +12,7 @@ const Footer = () => {
       backgroundPosition: "center",
       backgroundRepeat: "no-repeat",
     }}>
-			<div className="footer px-12 bg-base text-accent flex justify-between mb-20">
+			<div className="footer px-4 lg:px-12 bg-base text-accent flex flex-col lg:flex-row justify-between mb-20">
 				<div>
 					<span className="footer-title">Services</span>
 					<Link to="/" className="link link-hover">

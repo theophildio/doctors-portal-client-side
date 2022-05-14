@@ -1,9 +1,12 @@
 import React from 'react';
+import AppointmentBanner from './AppointmentBanner';
+import Footer from '../SharedPages/Footer/Footer';
 
 const Appointment = () => {
   return (
-    <div>
-      <h1>this is appointment</h1>
+    <div className="px-12">
+      <AppointmentBanner></AppointmentBanner>
+      <Footer></Footer>
     </div>
   );
 };

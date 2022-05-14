@@ -3,7 +3,7 @@ import AppointmentBg from '../../assets/images/appointment.png'
 
 const Contact = () => {
 	return (
-		<div className="py-16" style={{
+		<div className="py-16 px-4 lg:px-0" style={{
       backgroundImage: `url(${AppointmentBg})`,
       backgroundSize: "cover",
       backgroundPosition: "center",

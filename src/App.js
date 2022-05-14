@@ -8,7 +8,6 @@ import ContactUs from './Pages/ContactUs/ContactUs';
 import Home from './Pages/Home/Home';
 import Page404 from './Pages/Page404/Page404';
 import Reviews from './Pages/Reviews/Reviews';
-import Footer from './Pages/SharedPages/Footer/Footer';
 import Header from './Pages/SharedPages/Header/Header';
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
         <Route path='*' element={<Page404></Page404>}></Route>
       </Routes>
-      <Footer></Footer>
     </div>
   );
 }
