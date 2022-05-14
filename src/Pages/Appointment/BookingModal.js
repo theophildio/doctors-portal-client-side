@@ -6,8 +6,7 @@ const BookingModal = ({bookNow, setBookNow, date}) => {
 
   const handleBookink = e => {
     e.preventDefault();
-    const slot = e.target.slot.value; 
-    console.log(_id, name, slot);
+    const slot = e.target.slot.value;
     setBookNow(null)
   }
 

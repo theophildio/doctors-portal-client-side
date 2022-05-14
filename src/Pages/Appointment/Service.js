@@ -17,7 +17,7 @@ const Service = ({ service, setBookNow }) => {
 					{slots.length} {slots.length > 1 ? "spaces" : "space"} available
 				</p>
 				<div className="card-actions justify-center">
-          <label onClick={() => setBookNow(service)} disabled={slots.length === 0} htmlFor="booking-modal-6" className="btn btn-primary text-base-100 modal-button">book appointment</label>
+          <label onClick={() => setBookNow(service)} disabled={slots.length === 0} htmlFor="booking-modal-6" className="mt-2 btn btn-sm btn-submit border-0 bg-gradient-to-r from-primary to-secondary text-base-100 modal-button">book appointment</label>
 				</div>
 			</div>
 		</div>
