@@ -1,7 +1,10 @@
 import { format } from "date-fns";
+import { useAuthState } from 'react-firebase-hooks/auth';
 import React from "react";
+import auth from "../../firebase.init";
 
 const BookingModal = ({bookNow, setBookNow, date}) => {
+  const [user, loading, error] = useAuthState(auth);
   const {_id, name, slots} = bookNow;
 
   const handleBookink = e => {
@@ -24,12 +27,12 @@ const BookingModal = ({bookNow, setBookNow, date}) => {
             <input name="bookingkDate" type="text" value={format(date, 'PP')} disabled className="mb-5 input input-bordered w-full" />
             <select name="slot" className="select select-bordered w-full mb-5">
               {
-                slots.map(slot => <option value={slot}>{slot}</option>)
+                slots.map((slot, i) => <option key={i} value={slot}>{slot}</option>)
               }
             </select>
-            <input name="fullName" type="text" placeholder="Full Name" required className="mb-5 input input-bordered w-full" />
+            <input name="fullName" type="text" disabled value={user.displayName || ' '} required className="mb-5 input input-bordered w-full" />
             <input name="phone" type="tel" placeholder="Phone Number" required className="mb-5 input input-bordered w-full" />
-            <input name="email" type="email" placeholder="Email" required className="mb-5 input input-bordered w-full" />
+            <input name="email" type="email" disabled value={user.email} required className="mb-5 input input-bordered w-full" />
             <input type="submit" value="Submit" className="input bg-neutral text-base-100 uppercase cursor-pointer w-full input-bordered" />
           </form>
 				</div>

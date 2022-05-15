@@ -1,21 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import auth from "../../../firebase.init";
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+	useSignInWithEmailAndPassword,
+	useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../SharedPages/Spinner";
 const Login = () => {
-	const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
-	const [
-		signInWithEmailAndPassword,
-		user,
-		loading,
-		error,
-	] = useSignInWithEmailAndPassword(auth);
+	const [signInWithGoogle, googleUser, googleLoading, googleError] =
+		useSignInWithGoogle(auth);
+	const [signInWithEmailAndPassword, user, loading, error] =
+		useSignInWithEmailAndPassword(auth);
 
 	const navigate = useNavigate();
 	const location = useLocation();
 	let from = location.state?.from?.pathname || "/";
+
+	useEffect(() => {
+		if (user || googleUser) {
+			navigate(from, { replace: true });
+		}
+	}, [user, googleUser, from, navigate]);
 
 	const {
 		register,
@@ -26,21 +32,19 @@ const Login = () => {
 	let errorLoginMsg;
 
 	if (loading || googleLoading) {
-		return <Spinner></Spinner>
+		return <Spinner></Spinner>;
 	}
 
 	if (error || googleError) {
-		errorLoginMsg = <p className="text-red-500 py-2 text-sm text-center">{error?.message || googleError?.message}</p>
-	}
-
-	if (user || googleUser) {
-		console.log(user || googleUser);
-		navigate(from, {replace: true});
+		errorLoginMsg = (
+			<p className="text-red-500 py-2 text-sm text-center">
+				{error?.message || googleError?.message}
+			</p>
+		);
 	}
 
 	const onSubmit = (data) => {
 		signInWithEmailAndPassword(data.email, data.password);
-		navigate('/appointment');
 	};
 
 	return (
@@ -57,7 +61,7 @@ const Login = () => {
 								{...register("email", {
 									required: {
 										value: true,
-										message: "Email is required."
+										message: "Email is required.",
 									},
 									pattern: {
 										value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
@@ -68,18 +72,27 @@ const Login = () => {
 								className="input input-bordered w-full max-w-xs"
 							/>
 							<label className="label">
-								{errors.email?.type === 'required' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
-								{errors.email?.type === 'pattern' && <span className="label-text-alt text-red-500">{errors.email.message}</span>}
+								{errors.email?.type === "required" && (
+									<span className="label-text-alt text-red-500">
+										{errors.email.message}
+									</span>
+								)}
+								{errors.email?.type === "pattern" && (
+									<span className="label-text-alt text-red-500">
+										{errors.email.message}
+									</span>
+								)}
 							</label>
 						</div>
 						<div className="form-control w-full max-w-xs">
 							<label className="label">
 								<span className="label-text">Password</span>
 							</label>
-							<input {...register("password", {
+							<input
+								{...register("password", {
 									required: {
 										value: true,
-										message: "Password is required."
+										message: "Password is required.",
 									},
 									minLength: {
 										value: 6,
@@ -90,8 +103,16 @@ const Login = () => {
 								className="input input-bordered w-full max-w-xs"
 							/>
 							<label className="label">
-								{errors.password?.type === 'required' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
-								{errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
+								{errors.password?.type === "required" && (
+									<span className="label-text-alt text-red-500">
+										{errors.password.message}
+									</span>
+								)}
+								{errors.password?.type === "minLength" && (
+									<span className="label-text-alt text-red-500">
+										{errors.password.message}
+									</span>
+								)}
 							</label>
 							<label className="label">
 								<span className="label-text-alt">Forget Password?</span>
