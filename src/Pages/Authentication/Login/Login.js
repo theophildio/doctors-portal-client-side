@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import auth from "../../../firebase.init";
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../SharedPages/Spinner";
 const Login = () => {
 	const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
@@ -14,6 +14,8 @@ const Login = () => {
 	] = useSignInWithEmailAndPassword(auth);
 
 	const navigate = useNavigate();
+	const location = useLocation();
+	let from = location.state?.from?.pathname || "/";
 
 	const {
 		register,
@@ -33,6 +35,7 @@ const Login = () => {
 
 	if (user || googleUser) {
 		console.log(user || googleUser);
+		navigate(from, {replace: true});
 	}
 
 	const onSubmit = (data) => {
