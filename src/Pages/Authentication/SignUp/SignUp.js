@@ -37,10 +37,6 @@ const SignUp = () => {
 		);
 	}
 
-	if (user || googleUser) {
-		console.log(user || googleUser);
-	}
-
 	const onSubmit = async (data) => {
 		await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });

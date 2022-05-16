@@ -46,7 +46,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className="text-center pb-8">
-				<p>Copyright © {currentYear} - All right reserved by Doctors Portal | Developed by Theophil Dio</p>
+				<p className="capitalize">Copyright © {currentYear} - All right reserved | Developed by <a href="https://github.com/theophildio" target="_blank" rel="noreferrer" className="text-primary">Theophil Dio</a></p>
 			</div>
 		</footer>
 	);
