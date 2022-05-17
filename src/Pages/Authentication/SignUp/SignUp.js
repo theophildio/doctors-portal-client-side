@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import React from "react";
 import {
 	useCreateUserWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
+import useToken from "../../../hooks/useToken";
 import Spinner from "../../SharedPages/Spinner";
 
 const SignUp = () => {
@@ -16,6 +16,7 @@ const SignUp = () => {
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth);
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);  
+	const [token] = useToken(user || googleUser);
   const navigate = useNavigate();
 	const {
 		register,
@@ -35,6 +36,10 @@ const SignUp = () => {
 				{error?.message || googleError?.message || updateError?.message}
 			</p>
 		);
+	}
+
+	if (token) {
+		navigate('/appointment');
 	}
 
 	const onSubmit = async (data) => {
