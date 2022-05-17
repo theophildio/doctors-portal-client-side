@@ -20,7 +20,6 @@ const Users = () => {
 			<table className="table w-full">
 				<thead>
 					<tr>
-						<th>Sl</th>
 						<th>User Email</th>
 						<th></th>
 						<th></th>
@@ -28,7 +27,7 @@ const Users = () => {
 				</thead>
 				<tbody>
 					{
-            users.map((user, index) => <UserRow key={user._id} user={user} refetch={refetch}></UserRow>)
+            users.map(user => <UserRow key={user._id} user={user} refetch={refetch}></UserRow>)
           }
 				</tbody>
 			</table>
