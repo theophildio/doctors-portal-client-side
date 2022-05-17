@@ -15,7 +15,7 @@ const SignUp = () => {
 		useSignInWithGoogle(auth);
 	const [createUserWithEmailAndPassword, user, loading, error] =
 		useCreateUserWithEmailAndPassword(auth);
-  const [updateProfile, updating, updateError] = useUpdateProfile(auth);  
+  const [updateProfile, updateError] = useUpdateProfile(auth);  
 	const [token] = useToken(user || googleUser);
   const navigate = useNavigate();
 	const {
