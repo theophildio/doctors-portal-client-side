@@ -5,17 +5,20 @@ import { Link, NavLink } from "react-router-dom";
 import auth from "../../../../firebase.init";
 
 const Navbar = () => {
-	const [user, loading, error] = useAuthState(auth);
+	const [user] = useAuthState(auth);
 	const logout = () => {
 		signOut(auth);
 	};
 	const menuItems = (
 		<>
-			<li><NavLink to="/">Home</NavLink></li>
-			<li><NavLink to="/about">About</NavLink></li>
-			<li><NavLink to="/appointment">Appointment</NavLink></li>
-			<li><NavLink to="/reviews">Reviews</NavLink></li>
-			<li><NavLink to="/contactus">Contact Us</NavLink></li>
+			<li className="mr-1"><NavLink to="/">Home</NavLink></li>
+			<li className="mr-1"><NavLink to="/about">About</NavLink></li>
+			<li className="mr-1"><NavLink to="/appointment">Appointment</NavLink></li>
+			<li className="mr-1"><NavLink to="/reviews">Reviews</NavLink></li>
+			<li className="mr-1"><NavLink to="/contactus">Contact Us</NavLink></li>
+			{
+				user && <li className="mr-1"><NavLink to="/dashboard">Dashboard</NavLink></li>
+			}
 			<li>
 				{
 					user ? 
@@ -28,7 +31,7 @@ const Navbar = () => {
 	);
 	return (
 		<div className="navbar justify-between bg-base-100">
-			<div className="lg:w-36">
+			<div className="lg:w-full">
 				<Link to="/" className="normal-case text-xl">Doctors Portal</Link>
 			</div>
 			<div className="navbar-end">
