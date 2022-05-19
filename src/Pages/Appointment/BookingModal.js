@@ -37,9 +37,9 @@ const BookingModal = ({bookNow, setBookNow, date, refetch}) => {
       else {
         toast.error(`You have existing appointment on ${data.booking?.date} at ${data.booking?.slot}`)
       }
-      refetch();
       // Close modal
       setBookNow(null)
+      refetch();
     })
 
     

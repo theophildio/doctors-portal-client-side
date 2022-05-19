@@ -8,7 +8,7 @@ const Users = () => {
 		fetch("https://ancient-escarpment-91645.herokuapp.com/user", {
       method: 'GET',
       headers: {
-        'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`
       }
     }).then((res) => res.json())
 	);

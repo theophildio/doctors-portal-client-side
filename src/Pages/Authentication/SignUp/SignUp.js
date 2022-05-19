@@ -153,9 +153,9 @@ const SignUp = () => {
 							/>
 							<label className="label justify-center">
 								<span className="label-text-alt">
-									New to Doctors Portal?{" "}
-									<Link to="/signup" className="text-primary">
-										Create new account
+									Already have an account?{" "}
+									<Link to="/login" className="text-primary">
+										Login
 									</Link>
 								</span>
 							</label>
