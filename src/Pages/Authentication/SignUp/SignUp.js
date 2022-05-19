@@ -5,7 +5,7 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../../firebase.init";
 import useToken from "../../../hooks/useToken";
 import Spinner from "../../SharedPages/Spinner";
@@ -18,6 +18,8 @@ const SignUp = () => {
   const [updateProfile, updateError] = useUpdateProfile(auth);  
 	const [token] = useToken(user || googleUser);
   const navigate = useNavigate();
+	const location = useLocation();
+	let from = location.state?.from?.pathname || "/appointment";
 	const {
 		register,
 		formState: { errors },
@@ -39,7 +41,7 @@ const SignUp = () => {
 	}
 
 	if (token) {
-		navigate('/appointment');
+		navigate(from, { replace: true });
 	}
 
 	const onSubmit = async (data) => {
