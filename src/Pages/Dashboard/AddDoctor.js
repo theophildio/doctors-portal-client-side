@@ -118,7 +118,7 @@ const AddDoctor = () => {
 						className="select select-bordered w-full mb-5"
 					>
 						{
-							services?.map(service => 
+							services.map(service => 
 								<option key={service._id} value={service.name}>{service.name}</option>
 								)
 						}	

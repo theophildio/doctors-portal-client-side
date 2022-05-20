@@ -31,12 +31,14 @@ const ManageDoctors = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{doctors.map((doctor, index) => <DoctorRow
+						{
+            doctors.map((doctor, index) => <DoctorRow
               key={doctor._id}
               index={index}
               doctor={doctor}
               refetch={refetch}
-            ></DoctorRow>)}
+            ></DoctorRow>)
+            }
 					</tbody>
 				</table>
 			</div>
