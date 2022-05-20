@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Spinner from "../SharedPages/Spinner";
+import DeleteModal from "./DeleteModal";
 import DoctorRow from "./DoctorRow";
 
 const ManageDoctors = () => {
+  const [deleteDoctor, setDeleteDoctor] = useState(null);
 	const { data: doctors, isLoading, refetch } = useQuery("doctors", () =>
 		fetch("http://localhost:5000/doctor", {
 			headers: {
@@ -37,11 +39,19 @@ const ManageDoctors = () => {
               index={index}
               doctor={doctor}
               refetch={refetch}
+              setDeleteDoctor={setDeleteDoctor}
             ></DoctorRow>)
             }
 					</tbody>
 				</table>
 			</div>
+      {
+        deleteDoctor && <DeleteModal 
+          deleteDoctor={deleteDoctor}
+          setDeleteDoctor={setDeleteDoctor}
+          refetch={refetch}
+        ></DeleteModal>
+      }
 		</div>
 	);
 };
