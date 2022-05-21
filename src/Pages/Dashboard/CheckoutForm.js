@@ -6,13 +6,14 @@ const CheckoutForm = ({appointment}) => {
 	const elements = useElements();
 	const [cardErr, setCardErr] = useState('');
 	const [success, setSuccess] = useState('');
-	const [paymentID, setPaymentID] = useState('');
+	const [processing, setProcessing] = useState(false);
+	const [transactionId, setTransactionId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
 
-  const {patientName, patientEmail, fee} = appointment;
+  const {_id, patientName, patientEmail, fee} = appointment;
 
   useEffect(() => {
-    fetch('http://localhost:5000/create-payment-intent', {
+    fetch('https://ancient-escarpment-91645.herokuapp.com/create-payment-intent', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -25,8 +26,8 @@ const CheckoutForm = ({appointment}) => {
       if(data?.clientSecret) {
         setClientSecret(data.clientSecret);
       }
-    })
-  }, []);
+    });
+  }, [fee]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -34,16 +35,16 @@ const CheckoutForm = ({appointment}) => {
 			return;
 		}
 		const card = elements.getElement(CardElement);
-		if (card == null) {
+		if (card === null) {
 			return;
 		}
-		const { error } = await stripe.createPaymentMethod({
-			type: "card",
-			card,
+		const { error, paymentMethod } = await stripe.createPaymentMethod({
+			type: 'card',
+			card
 		});
 		setCardErr(error?.message || "");
     setSuccess('');
-
+    setProcessing(true);
     // Confirm payment 
     const {paymentIntent, error: intentError} = await stripe.confirmCardPayment(
       clientSecret,
@@ -58,12 +59,29 @@ const CheckoutForm = ({appointment}) => {
       },
     );
     if(intentError) {
-      setCardErr(intentError?.message)
+      setCardErr(intentError?.message);
+      setProcessing(false);
     }
     else{
       setCardErr('');
-      setPaymentID(paymentIntent.id);
+      setTransactionId(paymentIntent.id);
       setSuccess('Thank you! Your payment is completed.');
+      // Store payment in DB
+      const payment = {
+        appointment: _id,
+        transactionId: paymentIntent.id
+      }
+      fetch(`https://ancient-escarpment-91645.herokuapp.com/booking/${_id}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        },
+        body: JSON.stringify(payment)
+      }).then(res => res.json())
+      .then(data => {
+        setProcessing(false);
+      })
     }
 	};
 
@@ -89,7 +107,7 @@ const CheckoutForm = ({appointment}) => {
 				<button
 					className="mt-10 btn btn-sm bg-success border-0"
 					type="submit"
-					disabled={!stripe || !clientSecret}
+					disabled={!stripe || !clientSecret || success}
 				>
 					Pay now
 				</button>
@@ -100,7 +118,7 @@ const CheckoutForm = ({appointment}) => {
       {
         success && <div>  
           <p className="text-green-500">{success}</p>
-          <p className="text-green-700 font-semibold mt-5">Your transaction Id: {paymentID}</p>
+          <p className="text-green-700 font-semibold mt-5">Your transaction Id: {transactionId}</p>
           </div>
       }
 		</>
