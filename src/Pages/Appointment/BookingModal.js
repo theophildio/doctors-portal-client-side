@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 const BookingModal = ({bookNow, setBookNow, date, refetch}) => {
   const [user] = useAuthState(auth);
-  const {_id, name, slots} = bookNow;
+  const {_id, name, slots, fee} = bookNow;
   const formateDate = format(date, 'PP');
 
   const handleBookink = e => {
@@ -17,6 +17,7 @@ const BookingModal = ({bookNow, setBookNow, date, refetch}) => {
       treatment: name,
       date: formateDate,
       slot,
+      fee,
       patientName: user.displayName,
       patientEmail: user.email,
       phone: e.target.phone.value
