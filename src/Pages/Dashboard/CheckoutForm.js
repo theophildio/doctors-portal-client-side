@@ -31,7 +31,7 @@ const CheckoutForm = ({appointment}) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (!stripe || !elements) {
+		if (!stripe || !elements || success) {
 			return;
 		}
 		const card = elements.getElement(CardElement);
